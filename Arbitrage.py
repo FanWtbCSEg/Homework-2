@@ -29,29 +29,30 @@ max_path = []
 ans = []
 max = 0.0
 visitornot = {}
+def count(x, y, z):
+    return 997*x*liquidity[(y, z)][1]/(1000 * liquidity[(y, z)][0]+ 997 * x)
 def dfs(label, balance):
     global max, max_path
-    if (visitornot["tokenB"] == 1):
-        if(max < balance):
-            max = balance
-            max_path = path[:]
+    if (visitornot["tokenB"] == 1 and max < balance):
+        max = balance
+        max_path = path[:]
     else:
         for next in tokens:
             if (visitornot[next] == 0  and label != next):
                 visitornot[next] = 1
                 path.append(next)
-                dfs(next, 997*balance*liquidity[(label, next)][1]/(1000 * liquidity[(label, next)][0]+ 997 * balance))
+                dfs(next, count(balance, label, next))
                 visitornot[next] = 0
                 path.pop()
 for i in tokens:
     visitornot[i] = 0
-dfs("tokenB", 5)
+dfs("tokenB", balance)
 ans.append("tokenB")
 
 now = 5
 temp = "tokenB"
 for i in max_path:
-    now = ((997*now*liquidity[(temp, i)][1])/(1000 * liquidity[(temp, i)][0]+997*now))
+    now = count(now, temp, i)
     if(now > 20):
         break
     temp = i
