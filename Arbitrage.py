@@ -23,11 +23,9 @@ liquidity = {
 
 tokens = ["tokenA", "tokenB", "tokenC", "tokenD", "tokenE"]
 balance = 5
-new_balance = 0
 path = []
 max_path = []
-ans = []
-max = 0.0
+max = 0
 visitornot = {}
 def count(x, y, z):
     return 997*x*liquidity[(y, z)][1]/(1000 * liquidity[(y, z)][0]+ 997 * x)
@@ -47,7 +45,6 @@ def dfs(label, balance):
 for i in tokens:
     visitornot[i] = 0
 dfs("tokenB", balance)
-ans.append("tokenB")
 
 now = 5
 temp = "tokenB"
